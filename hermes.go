@@ -106,6 +106,7 @@ type Entry struct {
 // Table is an table where you can put data (pricing grid, a bill, and so on)
 type Table struct {
 	Title   string    // Title of the table
+	Text    string    // Text under title
 	Data    [][]Entry // Contains data
 	Columns Columns   // Contains meta-data for display purpose (width, alignement)
 }
