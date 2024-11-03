@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/go-hermes/hermes/v2"
+	"github.com/jurka/hermes/v2"
 )
 
 type inviteCode struct {

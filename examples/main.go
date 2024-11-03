@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/go-gomail/gomail"
-	"github.com/go-hermes/hermes/v2"
+	"github.com/jurka/hermes/v2"
 	"golang.org/x/term"
 )
 
