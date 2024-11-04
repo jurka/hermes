@@ -442,6 +442,9 @@
                                                                     </td>
                                                                 </tr>
                                                             </table>
+                                                            {{ if (ne $table.AfterMarkdown "") }}
+                                                              {{ $table.AfterMarkdown.ToHTML }}
+                                                            {{ end }}
                                                         {{ end }}
                                                     {{ end }}
                                                 {{ end }}

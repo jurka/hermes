@@ -76,6 +76,9 @@
               </tr>
             {{ end }}
           </table>
+          {{ if (ne $table.AfterMarkdown "") }}
+            {{ $table.AfterMarkdown.ToHTML }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}

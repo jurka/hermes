@@ -8,7 +8,6 @@ import (
 	"github.com/Masterminds/sprig"
 	"github.com/jaytaylor/html2text"
 	"github.com/russross/blackfriday/v2"
-	"github.com/sirupsen/logrus"
 	"github.com/vanng822/go-premailer/premailer"
 )
 
@@ -76,7 +75,6 @@ type Body struct {
 	IntrosMarkdown    Markdown        // Intro in markdown, will override Intros
 	IntrosUnsafe      []template.HTML // IntrosUnsafe is a list of unsafe HTML intro sentences
 	Dictionary        []Entry         // A list of key+value (useful for displaying parameters/settings/personal info)
-	Table             Table           // (DEPRECATED: Use Tables field instead) Table is an table where you can put data (pricing grid, a bill, and so on)
 	Tables            []Table         // Tables is a list of tables where you can put data (pricing grid, a bill, and so on)
 	Actions           []Action        // Actions are a list of actions that the user will be able to execute via a button click
 	OutrosMarkdown    Markdown        // Outro in markdown, will override Outros
@@ -103,12 +101,13 @@ type Entry struct {
 	UnsafeValue template.HTML
 }
 
-// Table is an table where you can put data (pricing grid, a bill, and so on)
+// Table is a table where you can put data (pricing grid, a bill, and so on)
 type Table struct {
-	Title   string    // Title of the table
-	Text    string    // Text under title
-	Data    [][]Entry // Contains data
-	Columns Columns   // Contains meta-data for display purpose (width, alignement)
+	Title         string    // Title of the table
+	Text          string    // Text under title
+	Data          [][]Entry // Contains data
+	Columns       Columns   // Contains meta-data for display purpose (width, alignment)
+	AfterMarkdown Markdown  // Markdown after the table
 }
 
 // Columns contains meta-data for the different columns
@@ -208,11 +207,6 @@ func (h *Hermes) generateTemplate(email Email, tplt string) (string, error) {
 	err := setDefaultEmailValues(&email)
 	if err != nil {
 		return "", err
-	}
-
-	if len(email.Body.Table.Data) > 0 {
-		logrus.Warn("Email.Body.Table field is deprecated, please use Email.Body.Tables instead")
-		email.Body.Tables = append(email.Body.Tables, email.Body.Table)
 	}
 
 	// Generate the email from Golang template
